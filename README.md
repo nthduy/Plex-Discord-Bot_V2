@@ -11,7 +11,6 @@ If you to use [Docker](https://www.docker.com/) , skip the points 2 and 3.
 3. Navigate to the root folder and in the console, type `npm install`
     * You should see packages beginning to install
 
-
 4. Once this is complete, go here: https://discordapp.com/developers/applications/me
     1. Log in or create an account
     2. Click **New App**
@@ -20,10 +19,10 @@ If you to use [Docker](https://www.docker.com/) , skip the points 2 and 3.
         * This will provide you with your Client ID and Client Secret
     5. Click **Create Bot User**
         * This will provide you with your bot Username and Token
-5. Take all of the information from the page and enter it into the `config/keys.js` file, replacing the placeholders.
-6. Navigate to the `config/plex.js` file and replace the placeholders with your Plex Server information
+5. Create a copy of your own `config/keys.js` based on the the default on found in `config/keys.example.js`, update `botToken` property with the generated token of your bot and update `config/keys.js`.
+6. For your plex server credentials, create a copy of your `config/plex.js` by copy `config/plex.example.js`, replace the placeholders with your Plex Server information
     1. To get your token, following the instructions here: https://support.plex.tv/hc/en-us/articles/204059436-Finding-an-authentication-token-X-Plex-Token
-    2. The identifier, product, version, and deviceName can be anything you want
+    2. The identifier, product, version, and deviceName can be anything you want 
 7. Once you have the configs set up correctly, you'll need to authorize your bot on a server you have administrative access to.  For documentation, you can read: https://discordapp.com/developers/docs/topics/oauth2#bots.  The steps are as follows:
     1. Go to `https://discordapp.com/api/oauth2/authorize?client_id=[CLIENT ID]&permissions=3197953&scope=bot` where [CLIENT_ID] is the Discord App Client ID
     2. Select **Add a bot to a server** and select the server to add it to
