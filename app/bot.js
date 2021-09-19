@@ -23,6 +23,8 @@ function getRandomNumber(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
+const TIMEOUT_MINUTES = 5;
+
 class Bot extends EventEmitter {
     constructor(client) {
         super();
@@ -67,6 +69,7 @@ class Bot extends EventEmitter {
         this.workingTask = 0;
         this.waitForStart = false;
         this.waitForStartMessage = null;
+        this.timeoutID = null;
     }
 
     /**
@@ -478,9 +481,16 @@ class Bot extends EventEmitter {
                 } else {
                     url = ytdl(this.songQueue[0].url, { quality: "highestaudio" });
                 }
+
+                // Clear disconnect timeout
+                if (this.timeoutID) {
+                    clearTimeout(this.timeoutID);
+                    this.timeoutID = null;
+                }
+
                 this.isPlaying = true;
 
-                // Arrow fuction to be played after a song is finished.
+                // Arrow function to be played after a song is finished.
                 const dispatcherFunc = () => {
                     if (this.songQueue.length > 0) {
                         if (this.songQueue[0].replay) {
@@ -556,15 +566,18 @@ class Bot extends EventEmitter {
      *
      */
     async playbackCompletion() {
-        if (!this.isPlaying) {
-            if (this.conn) {
-                await this.conn.disconnect();
+        // Don't disconnect right away, wait a little bit
+        this.timeoutID = setTimeout(async () => {
+            if (!this.isPlaying) {
+                if (this.conn) {
+                    await this.conn.disconnect();
+                }
+                if (this.voiceChannel) {
+                    await this.voiceChannel.leave();
+                    this.voiceChannel = null;
+                }
             }
-            if (this.voiceChannel) {
-                await this.voiceChannel.leave();
-                this.voiceChannel = null;
-            }
-        }
+        }, TIMEOUT_MINUTES * 60 * 1000);
     }
 
     /**
