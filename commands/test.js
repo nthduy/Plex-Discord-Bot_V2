@@ -3,7 +3,7 @@ module.exports = {
   name : 'plextest',
   command : {
     usage: '',
-    description: 'test plex at bot start up to make sure everything is working',
+    description: 'Test plex at bot start up to make sure everything is working',
     process: function(bot, client, message) {
       bot.plex.query('/').then(function(result) {
         if(message) {
@@ -11,12 +11,12 @@ module.exports = {
           'Bot version : ' + packageJson.version);
         }
         else {
-          console.log('name: ' + result.MediaContainer.friendlyName);
-          console.log('v: ' + result.MediaContainer.version);
+          console.log('Media name: ' + result.MediaContainer.friendlyName);
+          console.log('Media Container version: ' + result.MediaContainer.version);
           console.log('bot version: ' + packageJson.version);
         }
       }, function(err) {
-        console.log('ya done fucked up');
+        console.log('Error connecting to media server', err);
       });
     }
   }
