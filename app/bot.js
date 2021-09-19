@@ -458,11 +458,8 @@ class Bot extends EventEmitter {
    *
    */
   async playSong(message) {
-    console.log("Play Song Message", message);
     if (this.voiceChannel == null)
       this.voiceChannel = message.member.voice.channel;
-
-	console.log("Voide Channel", this.voiceChannel);
 
     if (this.voiceChannel) {
       this.emit("will play", message);
