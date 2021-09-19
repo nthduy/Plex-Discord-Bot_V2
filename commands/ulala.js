@@ -1,25 +1,26 @@
 var ulalaPlaying = false;
 
 module.exports = {
-  name : 'ulala',
-  command : {
-    usage : '',
-    description : 'Ulala...',
-    process : async function(bot, client, message) {
-      
-      if(!bot.isPlaying || ulalaPlaying){
+  name: "ulala",
+  command: {
+    usage: "",
+    description: "Ulala...",
+    process: async function (bot, client, message) {
+      if (!bot.isPlaying || ulalaPlaying) {
         ulalaPlaying = !ulalaPlaying;
         let nom = "Ulala Voicemod";
-        if(ulalaPlaying){
+        if (ulalaPlaying) {
           bot.isPlaying = true;
-          let musique = {"url" : "https://www.youtube.com/watch?v=ElzlUMlu4G0"};
-          let ulala = async function() {
-            if(ulalaPlaying) {
+          let musique = { url: "https://www.youtube.com/watch?v=ElzlUMlu4G0" };
+          const ulala = async function () {
+            if (ulalaPlaying) {
               try {
-                bot.jouerUneMusique(musique, message.member.voice.channel, ulala);
-              } catch (e){
+                bot.playSong(musique, message.member.voice.channel, ulala);
+              } catch (e) {
                 console.error(e);
-                musique = {"url" : "https://www.youtube.com/watch?v=ElzlUMlu4G0"};
+                musique = {
+                  url: "https://www.youtube.com/watch?v=ElzlUMlu4G0",
+                };
                 ulala();
               }
             }
@@ -27,14 +28,14 @@ module.exports = {
           ulala();
         } else {
           await bot.dispatcher.end();
-		  bot.isPlaying = false;
-          if(bot.songQueue.length > 0 ) {
+          bot.isPlaying = false;
+          if (bot.songQueue.length > 0) {
             bot.playSong(message);
           } else {
-			await bot.playbackCompletion(message);
-		  }
+            await bot.playbackCompletion(message);
+          }
         }
       }
-    }
-  }
+    },
+  },
 };
