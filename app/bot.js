@@ -566,6 +566,7 @@ class Bot extends EventEmitter {
      *
      */
     async playbackCompletion() {
+        console.log("Playback End, creating timeout");
         // Don't disconnect right away, wait a little bit
         this.timeoutID = setTimeout(async () => {
             if (!this.isPlaying) {
@@ -577,6 +578,8 @@ class Bot extends EventEmitter {
                     this.voiceChannel = null;
                 }
             }
+
+            this.timeoutID = null;
         }, TIMEOUT_MINUTES * 60 * 1000);
     }
 

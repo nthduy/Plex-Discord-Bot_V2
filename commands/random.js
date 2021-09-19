@@ -4,7 +4,7 @@ module.exports = {
     usage: '',
     description: 'bot will join voice channel and play a random song.',
     process: async function(bot, client, message, query) {
-      if (query.length == 0) {
+      if (query.length === 0) {
         try {
           await bot.findRandomTracksOnPlex(message);
         } catch (err){
