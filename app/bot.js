@@ -101,18 +101,18 @@ class Bot extends EventEmitter {
             "/all?type=10"
         );
 
-        if (query) {
-            if (!isNaN(parseInt(query, '10'))) {
-                for (let i = 0; i < parseInt(query); i++) {
-                    const nombre2 = getRandomNumber(res.MediaContainer.Metadata.length);
-                    const music = this.trackToMusic(res.MediaContainer.Metadata[nombre2]);
+        if (query && isNaN(parseInt(query, '10'))) {
+            message.reply(`Invalid argument, must be an integer`);
+            return;
+        }
 
-                    this.songQueue.push(music);
-                }
-            } else {
-                message.reply(`Invalid argument, must be an integer`);
-                return;
-            }
+        const randomCount = query ? parseInt(query) : 1;
+
+        for (let i = 0; i < randomCount; i++) {
+            const randomNumber = getRandomNumber(res.MediaContainer.Metadata.length);
+            const music = this.trackToMusic(res.MediaContainer.Metadata[randomNumber]);
+
+            this.songQueue.push(music);
         }
 
         if (!this.isPlaying) {
