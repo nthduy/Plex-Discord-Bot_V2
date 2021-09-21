@@ -102,8 +102,8 @@ class Bot extends EventEmitter {
         );
 
         if (query) {
-            if (Number.isInteger(query)) {
-                for (let i = 0; i < query; i++) {
+            if (!isNaN(parseInt(query, '10'))) {
+                for (let i = 0; i < parseInt(query); i++) {
                     const nombre2 = getRandomNumber(res.MediaContainer.Metadata.length);
                     const music = this.trackToMusic(res.MediaContainer.Metadata[nombre2]);
 
