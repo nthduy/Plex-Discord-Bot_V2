@@ -17,9 +17,9 @@
 		"ffmpeg-static": "^4.4.0",
 		"got": "^11.8.2",
 		"libsodium-wrappers": "^0.7.9",
-		"node-fetch": "^2.6.1",
+		"node-fetch": "^2.6.5",
 		"plex-api": "^5.2.5",
 		"utf-8-validate": "^5.0.5",
-		"ytdl-core": "^4.8.3"
+		"ytdl-core": "^4.9.1"
 	}
 }
