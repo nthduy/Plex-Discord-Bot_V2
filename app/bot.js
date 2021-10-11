@@ -113,17 +113,17 @@ class Bot extends EventEmitter {
             const music = this.trackToMusic(res.MediaContainer.Metadata[randomNumber]);
 
             this.songQueue.push(music);
-        }
 
-        if (!this.isPlaying) {
-            this.playSong(message);
-        } else {
-            message.reply(
-                language.BOT_ADDTOQUEUE_SUCCES.format({
-                    artist: music.artist,
-                    title: music.title,
-                })
-            );
+            if (!this.isPlaying) {
+                this.playSong(message);
+            } else {
+                message.reply(
+                    language.BOT_ADDTOQUEUE_SUCCES.format({
+                        artist: music.artist,
+                        title: music.title,
+                    })
+                );
+            }
         }
     }
 
